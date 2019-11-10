@@ -1,0 +1,43 @@
+body{
+    ;
+}
+.main {
+    border-radius: 25px;
+    color: black;
+    margin: 0 auto;
+    background-color: lightblue;
+    height: 900px;
+    width: 800px;
+    margin-top: 25px;
+    padding: 30px;
+}
+
+.card-img-top{
+
+}
+.card{
+    width: 75%;
+    border-radius: 25px;
+}
+.author{
+    margin-bottom: 15px;
+}
+.port-content{
+    background-color: white;
+    padding: 20px;
+    border-radius: 25px;
+}
+
+.account-img {
+  height: 125px;
+  width: 125px;
+  margin-right: 20px;
+  margin-bottom: 16px;
+}
+.content-section{
+    background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}

@@ -1,0 +1,70 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+    <div class="main" id="main">
+        <fieldset>
+            <div class="title h1">
+                {{ port.title }}
+                <hr>
+            </div>
+        </fieldset>
+        <fieldset>
+            <div  class="author d-flex p-2 bd-highlight d-flex justify-content-around align-items-center">
+                <div class="mb-3">
+                    <img src="{{ url_for('static', filename='profile_pics/' + port.creator.image_file) }}" alt="" height="128" class="rounded-circle">
+                </div>
+                <div class="card">
+                  <div class="card-body">
+                      <span>Author: {{ port.author }} </span>
+                      <hr>
+                      <p>About me: {{ port.about }}</p>
+                      <hr>
+                      <span>School: {{ port.school }};</span>
+                      <small>Avg mark: {{ port.avg }}.</small>
+
+                  </div>
+                </div>
+
+            </div>
+        </fieldset>
+        <hr>
+        <fieldset>
+            <div  class="port-content">
+                <p>{{ port.content }}</p>
+            </div>
+        </fieldset>
+        <hr>
+        <fieldset>
+            <div class="link">
+                <a href="#">{{ port.link }}</a>
+            </div>
+        </fieldset>
+
+
+    </div>
+
+    <form action="">
+    <div class="input-group-sm mb-3 mt-3">
+        <label for="port-color-back">Try some colors for background(not saving in db):</label>
+        <input class="form-control" type="text" id="port-color-back" placeholder="green">
+        <label for="port-color-font">Try some colors for font(not saving in db):</label>
+        <input class="form-control" type="text" id="port-color-font" placeholder="white">
+    </div>
+    </form>
+    <div class="btn-group">
+        <button class="btn btn-secondary" onclick="changeColor(document.getElementById('port-color-back').value)">Switch background color</button>
+        <button class="btn btn-secondary" onclick="newFont(document.getElementById('port-color-font').value)">Switch font color</button>
+    </div>
+  <script>
+  function changeColor(newColor) {
+    var elem = document.getElementById("main");
+    elem.style.backgroundColor = newColor;
+  }
+  function newFont(newColor) {
+      var elem = document.getElementById("main");
+      elem.style.color = newColor
+
+  }
+  </script>
+{% endblock %}
