@@ -1,5 +1,12 @@
 body{
-    ;
+
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+a:hover{
+    text-decoration: none;
 }
 .main {
     border-radius: 25px;
@@ -10,6 +17,7 @@ body{
     width: 800px;
     margin-top: 25px;
     padding: 30px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
 .card-img-top{
@@ -35,7 +43,7 @@ body{
   margin-bottom: 16px;
 }
 .content-section{
-    background: #ffffff;
+  background: #ffffff;
   padding: 10px 20px;
   border: 1px solid #dddddd;
   border-radius: 3px;
@@ -45,19 +53,30 @@ body{
     display: flex;
 }
 .settings{
-    margin: 5px;
+    margin:25px 5px 5px 5px;
     display: flex;
     align-items: center;
     flex-direction: column;
 }
-.navbar{
-    background-color: #cccccc;
-}
+
 .sidebar{
     display: flex;
     border-radius: 5px;
     background-color: #cccccc;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 .settings-btn{
+    text-align: center;
+    width: 200px;
+    padding: 5px 15px;
+    background-color: white;
+    border: solid 1px black;
+    border-radius: 5px;
     margin: 5px;
+}
+.settings-btn:hover{
+    opacity: 0.5;
+    text-decoration: none;
+    color: white;
+    background-color: black;
 }

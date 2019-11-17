@@ -1,0 +1,22 @@
+DB:
+1)Title
+2)Author, grade
+3)Content:
+	* Коротко о себе
+	* Ссылка на грамоты 
+	* Чекбокс золотая медаль/аттестат
+	* Средний балл
+	* Любимый предмет
+4)Школа
+
+
+Form:
+1)StringField : DR
+2)StringField : DR, current user
+3)TextArea
+	*TextArea
+	*link
+	*CHeckBox
+	*Float
+	*Select
+4)String FIeld

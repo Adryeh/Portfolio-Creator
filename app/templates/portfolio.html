@@ -1,7 +1,14 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-
+<div class="wrapper">
+<aside class="sidebar">
+<form class="settings" action="" method="post">
+    <a class="settings-btn" href="{{ url_for('port.port_title_update') }}">Update Title</a>
+    <a class="settings-btn" href="{{ url_for('port.port_content_update') }}">Update Content</a>
+    <a class="settings-btn" href="{{ url_for('port.port_about_update') }}">Update About</a>
+</form>
+</aside>
     <div class="main" id="main">
         <fieldset>
             <div class="title h1">
@@ -43,7 +50,8 @@
 
 
     </div>
-
+</div>
+<hr>
     <form action="">
     <div class="input-group-sm mb-3 mt-3">
         <label for="port-color-back">Try some colors for background(not saving in db):</label>

@@ -1,5 +1,7 @@
 # Custom files
-
+*.jpg
+*.png
+*.jpeg
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
