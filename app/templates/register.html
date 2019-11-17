@@ -7,8 +7,23 @@
         <form action="" method="POST">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
-                <legend class="border-bottom">Login</legend>
+                <legend class="border-bottom">Register</legend>
+                <div class="form-group" >
+                    {{ form.username.label(class='form-control-label') }}
 
+                    {% if form.username.errors %}
+                        {{ form.username(class='form-control is-invalid') }}
+                        <div class="invalid-feedback">
+                            {% for error in form.username.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.username(class='form-control') }}
+                    {% endif %}
+
+
+                </div>
                 <div class="form-group">
                     {{ form.email.label(class='form-control-label') }}
                     {% if form.email.errors %}
@@ -35,23 +50,28 @@
                         {{ form.password(class='form-control') }}
                     {% endif %}
                 </div>
-                <div class="form-check">
-                    {{ form.remember(class='form-check-input') }}
-                    {{ form.remember.label(class='form-check-label') }}
+                <div class="form-group">
+                    {{ form.confirm_password.label(class='form-control-label') }}
+                    {% if form.confirm_password.errors %}
+                        {{ form.confirm_password(class='form-control is-invalid') }}
+                        <div class="invalid-feedback">
+                            {% for error in form.confirm_password.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.confirm_password(class='form-control') }}
+                    {% endif %}
                 </div>
             </fieldset>
             <div class="form-group">
                 {{ form.submit(class='btn btn-outline-info') }}
-                 <small class="text-muted ml-2">
-                <a href="#">Forget password?</a>
-                </small>
             </div>
-
         </form>
     </div>
     <div>
     <small>
-        Need an account? <a href="{{ url_for('register') }}">Sign Up Now</a>
+        Already have an account? <a href="{{ url_for('users.login') }}">Sign In</a>
     </small>
     </div>
 {% endblock %}
