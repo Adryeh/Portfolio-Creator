@@ -41,3 +41,23 @@ body{
   border-radius: 3px;
   margin-bottom: 20px;
 }
+.wrapper{
+    display: flex;
+}
+.settings{
+    margin: 5px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.navbar{
+    background-color: #cccccc;
+}
+.sidebar{
+    display: flex;
+    border-radius: 5px;
+    background-color: #cccccc;
+}
+.settings-btn{
+    margin: 5px;
+}
