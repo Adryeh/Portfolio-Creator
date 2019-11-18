@@ -4,9 +4,8 @@
 <div class="wrapper">
 <aside class="sidebar">
 <form class="settings" action="" method="post">
-    <a class="settings-btn" href="{{ url_for('port.port_title_update') }}">Update Title</a>
-    <a class="settings-btn" href="{{ url_for('port.port_content_update') }}">Update Content</a>
-    <a class="settings-btn" href="{{ url_for('port.port_about_update') }}">Update About</a>
+    <a class="settings-btn" href="{{ url_for('port.port_title_update') }}">Update Portfolio</a>
+    <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
 </form>
 </aside>
     <div class="main" id="main">
@@ -23,7 +22,7 @@
                 </div>
                 <div class="card">
                   <div class="card-body">
-                      <span>Author: {{ port.author }} </span>
+                      <span>Author: {{ user }} </span>
                       <hr>
                       <p>About me: {{ port.about }}</p>
                       <hr>
@@ -51,6 +50,25 @@
 
     </div>
 </div>
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteModalLabel">Delete portfolio?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <form action="{{ url_for('port.delete_port') }}" method="post">
+                  <input class="btn btn-danger" type="submit" value="Delete">
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
 <hr>
     <form action="">
     <div class="input-group-sm mb-3 mt-3">

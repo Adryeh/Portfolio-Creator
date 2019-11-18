@@ -1,8 +1,8 @@
 from app import db
-from flask import render_template, url_for, redirect, Blueprint, flash, abort
+from flask import render_template, url_for, redirect, Blueprint, flash, abort, request
 from flask_login import current_user, login_required
 from app.models import Portfolio
-from app.portfolio.forms import PortfolioForm, PortfolioTitleUpdate, PortfolioContentUpdate, PortfolioAboutUpdate
+from app.portfolio.forms import PortfolioForm
 
 
 port = Blueprint('port', __name__)
@@ -11,9 +11,12 @@ port = Blueprint('port', __name__)
 @port.route('/create_portfolio', methods=['POST', 'GET'])
 @login_required
 def create_portfolio():
+    if current_user.port:
+        flash('You already have portfolio, delete it first', 'danger')
+        return redirect(url_for('main.home'))
     form = PortfolioForm()
     if form.validate_on_submit():
-        port = Portfolio(title=form.title.data, author=form.author.data, content=form.content.data,
+        port = Portfolio(title=form.title.data, author=current_user.username, content=form.content.data,
                          about=form.about.data, link=form.link.data, avg=form.avg.data,
                          school=form.school.data, background_color=form.background_color.data,
                          font_color=form.font_color.data, creator=current_user)
@@ -27,62 +30,55 @@ def create_portfolio():
 @port.route('/portfolio')
 @login_required
 def portfolio():
-
+    user = current_user.username
     port = Portfolio.query.filter_by(user_id=current_user.id).first()
     if port is None:
         flash('You don\'t have any portfolio. Create your first!', 'info')
         return redirect(url_for('port.create_portfolio'))
-    return render_template('portfolio.html', port=port)
+    return render_template('portfolio.html', port=port, user=user)
 
 
-@port.route('/portfolio/title', methods=['POST', 'GET'])
+@port.route('/portfolio/update', methods=['POST', 'GET'])
 @login_required
 def port_title_update():
     port = Portfolio.query.filter_by(user_id=current_user.id).first()
     if port.creator != current_user:
         abort(403)
-    form = PortfolioTitleUpdate()
+    form = PortfolioForm()
     if form.validate_on_submit():
         port.title = form.title.data
-        db.session.commit()
-        flash('Your title has been updated', 'success')
-        return redirect(url_for('port.portfolio'))
-    return render_template('update_portfolio_title.html', form=form)
-
-
-
-@port.route('/portfolio/content', methods=['POST', 'GET'])
-@login_required
-def port_content_update():
-    port = Portfolio.query.filter_by(user_id=current_user.id).first()
-    if port.creator != current_user:
-        abort(403)
-    form = PortfolioContentUpdate()
-    if form.validate_on_submit():
         port.content = form.content.data
+        port.about = form.about.data
+        port.link = form.link.data
+        port.avg = form.avg.data
+        port.school = form.school.data
+        port.background_color = form.background_color.data
+        port.font_color = form.font_color.data
         db.session.commit()
-        flash('Your content has been updated', 'success')
+        flash('Your portfolio has been updated', 'success')
         return redirect(url_for('port.portfolio'))
-    return render_template('update_portfolio_content.html', form=form)
+    elif request.method == 'GET':
+        form.title.data = port.title
+        form.content.data = port.content
+        form.about.data = port.about
+        form.link.data = port.link
+        form.avg.data = port.avg
+        form.school.data = port.school
+        form.background_color.data = port.background_color
+        form.font_color.data = port.font_color
+    return render_template('create_portfolio.html', form=form)
 
 
-@port.route('/portfolio/about', methods=['POST', 'GET'])
+@port.route("/port/delete", methods=['POST'])
 @login_required
-def port_about_update():
+def delete_port():
     port = Portfolio.query.filter_by(user_id=current_user.id).first()
     if port.creator != current_user:
         abort(403)
-    form = PortfolioAboutUpdate()
-    if form.validate_on_submit():
-        port.about = form.about.data
-        db.session.commit()
-        flash('Your about has been updated', 'success')
-        return redirect(url_for('port.portfolio'))
-    return render_template('update_portfolio_about.html', form=form)
-
-
-
-
+    db.session.delete(port)
+    db.session.commit()
+    flash('Your portfolio has been deleted', 'success')
+    return redirect(url_for('main.home'))
 
 
 
