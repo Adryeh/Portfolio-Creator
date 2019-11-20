@@ -1,7 +1,6 @@
 from datetime import datetime
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from app import db, login_manager
-from flask import current_app
 from flask_login import UserMixin
 
 
@@ -35,3 +34,10 @@ class Portfolio(db.Model):
 
     def __repr__(self):
         return '<Portfolio %r>' % self.title
+
+
+class Achievementss(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    title = db.Column(db.String, nullable=False)
+    type = db.Column(db.String, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)

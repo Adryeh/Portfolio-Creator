@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, SubmitField, TextAreaField, BooleanField, SelectField, FileField, PasswordField
+from wtforms import StringField, SubmitField, TextAreaField, BooleanField, SelectField, FileField, PasswordField, RadioField
 from wtforms.validators import DataRequired, Email, EqualTo, Length, ValidationError
 from flask_login import current_user
 from app.models import User
@@ -50,5 +50,7 @@ class UpdateAccountForm(FlaskForm):
                 raise ValidationError('That email exists. Please choose another!')
 
 
-
-
+class AchievementsForm(FlaskForm):
+    title = StringField('Title', validators=[DataRequired()])
+    type = RadioField('Type', choices=[('Medal', 'Is Medal'), ('Diploma', 'Is Diploma'), ('Other', 'Is Other type   ')])
+    submit = SubmitField('Add')

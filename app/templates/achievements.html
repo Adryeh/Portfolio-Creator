@@ -1,0 +1,72 @@
+ 
+{% extends 'layout.html' %}
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<div class="content-section">
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+      <div class="form-group">
+        {{ form.title.label(class='form-control-label') }}
+         {% if form.title.errors %}
+            {{ form.title(class='form-control is-invalid') }}
+            <div class="invalid-feedback">
+                {% for error in form.title.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% else %}
+            {{ form.title(class='form-control') }}
+        {% endif %}
+      </div>
+     <div class="form-group">
+         {% for subfield in form.type %}
+            {{ subfield }}
+            {{ subfield.label }}
+         {% endfor %}
+     </div>
+     <div class="submit">
+         {{ form.submit(class="btn btn-primary") }}
+     </div>
+    </form>
+</div>
+    <hr>
+<div class="content-section">
+  <h2>{{current_user.username}}'s achievements list</h2>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th style="text-align: center;" width="200">Type</th>
+        <th style="text-align: center;" width="200">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for item in achieves %}
+        <tr>
+            <td>{{item.title}}</td>
+            <td style="text-align: center;">
+                {% if item.type == 'Medal'%}
+                <img src="{{url_for('static', filename='profile_pics/medals.png')}}" alt="" width="35">
+                {% elif item.type == 'Diploma' %}
+                <img src="{{url_for('static', filename='profile_pics/diploma.png')}}" alt="" width="35">
+                {% else %}
+                <span style="font-weight: bold;">Other</span>
+                {% endif %}
+            </td>
+            <td style="display: flex;">
+                <a class="btn btn-danger" href="{{url_for('users.delete_achieve', id=item.id)}}">Delete</a>
+                <br>
+                <a style="margin-left: 25px;" class="btn btn-secondary" href="#">Update</a>
+            </td>
+        </tr>
+    {% endfor %}
+
+
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

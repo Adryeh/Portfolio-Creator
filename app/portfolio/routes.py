@@ -1,7 +1,7 @@
 from app import db
 from flask import render_template, url_for, redirect, Blueprint, flash, abort, request
 from flask_login import current_user, login_required
-from app.models import Portfolio
+from app.models import Portfolio, Achievementss
 from app.portfolio.forms import PortfolioForm
 
 
@@ -17,7 +17,7 @@ def create_portfolio():
     form = PortfolioForm()
     if form.validate_on_submit():
         port = Portfolio(title=form.title.data, author=current_user.username, content=form.content.data,
-                         about=form.about.data, link=form.link.data, avg=form.avg.data,
+                         about=form.about.data, avg=form.avg.data,
                          school=form.school.data, background_color=form.background_color.data,
                          font_color=form.font_color.data, creator=current_user)
         db.session.add(port)
@@ -31,11 +31,12 @@ def create_portfolio():
 @login_required
 def portfolio():
     user = current_user.username
+    achieves = Achievementss.query.filter_by(user_id=current_user.id)
     port = Portfolio.query.filter_by(user_id=current_user.id).first()
     if port is None:
         flash('You don\'t have any portfolio. Create your first!', 'info')
         return redirect(url_for('port.create_portfolio'))
-    return render_template('portfolio.html', port=port, user=user)
+    return render_template('portfolio.html', port=port, user=user, achieves=achieves)
 
 
 @port.route('/portfolio/update', methods=['POST', 'GET'])

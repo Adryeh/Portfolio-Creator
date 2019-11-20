@@ -1,8 +1,8 @@
-from flask import Flask, render_template, url_for, request, redirect, flash, current_app, Blueprint
-from flask_login import login_user, current_user, logout_user, login_required, UserMixin, LoginManager
-from app.users.forms import RegistrationForm, LoginForm, UpdateAccountForm
+from flask import render_template, url_for, request, redirect, flash, Blueprint
+from flask_login import login_user, current_user, logout_user, login_required
+from app.users.forms import RegistrationForm, LoginForm, UpdateAccountForm, AchievementsForm
 from app import bcrypt, db
-from app.models import User
+from app.models import User, Achievementss
 from app.users.utils import save_picture
 
 
@@ -65,3 +65,28 @@ def account():
         form.email.data = current_user.email
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
     return render_template('account.html', image_file=image_file, form=form)
+
+
+@users.route('/account/achievements', methods=['GET', 'POST'])
+@login_required
+def achievements():
+    form = AchievementsForm()
+    achieves = Achievementss.query.filter_by(user_id=current_user.id)
+    if form.validate_on_submit():
+        achievement = Achievementss(title=form.title.data, type=form.type.data, user_id=current_user.id)
+        db.session.add(achievement)
+        db.session.commit()
+        flash('Your achievement now is in portfolio', 'success')
+        return redirect(url_for('users.achievements'))
+    return render_template('achievements.html', form=form, achieves=achieves)
+
+
+@users.route('/delete/<int:id>', methods=['POST', 'GET'])
+@login_required
+def delete_achieve(id):
+    achieve_to_delete = Achievementss.query.get_or_404(id)
+    if achieve_to_delete.user_id != current_user.id:
+        return 'You can\'t delete this one'
+    db.session.delete(achieve_to_delete)
+    db.session.commit()
+    return redirect(url_for('users.achievements'))

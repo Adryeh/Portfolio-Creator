@@ -10,10 +10,8 @@
 </aside>
     <div class="main" id="main">
         <fieldset>
-            <div class="title h1">
-                {{ port.title }}
-                <hr>
-            </div>
+            <h2>{{port.title}}</h2>
+            <hr>
         </fieldset>
         <fieldset>
             <div  class="author d-flex p-2 bd-highlight d-flex justify-content-around align-items-center">
@@ -37,14 +35,21 @@
         <hr>
         <fieldset>
             <div  class="port-content">
+                <h5>Content:</h5>
                 <p>{{ port.content }}</p>
             </div>
         </fieldset>
         <hr>
         <fieldset>
-            <div class="link">
-                <a href="#">{{ port.link }}</a>
-            </div>
+            <h3>My Achievements:</h3>
+                <table class="table table-bordered">
+                    {% for item in achieves %}
+                    <tr>
+                        <td>{{item.title}}</td>
+                    </tr>
+                    {% endfor %}
+
+                </table>
         </fieldset>
 
 

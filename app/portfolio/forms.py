@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, TextAreaField, BooleanField, SelectField, FileField, PasswordField
-from wtforms.validators import DataRequired, Email, EqualTo, Length, ValidationError
+from wtforms import StringField, SubmitField, TextAreaField
+from wtforms.validators import DataRequired
 
 
 class PortfolioForm(FlaskForm):

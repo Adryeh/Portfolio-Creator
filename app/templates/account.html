@@ -13,6 +13,10 @@
               <p class="text-secondary">{{ current_user.email }}</p>
             </div>
           </div>
+        <nav class="menu">
+            <a href="{{url_for('users.achievements')}}">Achievements</a>
+            <a href="#">Delete my account</a>
+        </nav>
              <div class="content-section">
         <form action="" method="POST" enctype="multipart/form-data">
             {{ form.hidden_tag() }}
