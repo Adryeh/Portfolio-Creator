@@ -6,6 +6,7 @@
 
 {% block body %}
     <div class="content-section">
+        <div class="content-section">
           <div class="media">
             <img class="rounded-circle account-img" alt="avatar" src="{{ image_file }}">
             <div class="media-body">
@@ -13,6 +14,7 @@
               <p class="text-secondary">{{ current_user.email }}</p>
             </div>
           </div>
+        </div>
         <nav class="menu">
             <a href="{{url_for('users.achievements')}}">Achievements</a>
             <a href="#">Delete my account</a>

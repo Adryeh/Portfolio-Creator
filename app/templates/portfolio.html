@@ -5,8 +5,29 @@
 <aside class="sidebar">
 <form class="settings" action="" method="post">
     <a class="settings-btn" href="{{ url_for('port.port_title_update') }}">Update Portfolio</a>
-    <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+    <a class="settings-btn" href="{{ url_for('users.achievements') }}">Update Achievements</a>
+    <a class="settings-btn" href="{{ url_for('users.account') }}">Update Photo</a>
 </form>
+<hr>
+<form action="">
+    <div class="input-group-sm mb-3 mt-3">
+        <label for="port-color-back">Try some colors for background(not saving in db):</label>
+        <input class="form-control" type="text" id="port-color-back" placeholder="example: green">
+        <label for="port-color-font">Try some colors for font(not saving in db):</label>
+        <input class="form-control" type="text" id="port-color-font" placeholder="example: white">
+    </div>
+</form>
+    <div class="btn-group btns">
+        <button class="btn btn-secondary child" onclick="changeColor(document.getElementById('port-color-back').value)">Switch background color</button>
+        <button class="btn btn-secondary child" onclick="newFont(document.getElementById('port-color-font').value)">Switch font color</button>
+    </div>
+    <div class="btn-group btns">
+        <button class="btn btn-secondary child" onclick="changeColor('lightblue')">Reset background color</button>
+        <button class="btn btn-secondary child" onclick="newFont('black')">Reset font color</button>
+    </div>
+    <div class="btn-group btns">
+        <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete Portfolio</button>
+    </div>
 </aside>
     <div class="main" id="main">
         <fieldset>
@@ -26,10 +47,8 @@
                       <hr>
                       <span>School: {{ port.school }};</span>
                       <small>Avg mark: {{ port.avg }}.</small>
-
                   </div>
                 </div>
-
             </div>
         </fieldset>
         <hr>
@@ -41,20 +60,17 @@
         </fieldset>
         <hr>
         <fieldset>
-            <h3>My Achievements:</h3>
-                <table class="table table-bordered">
+            <h4>My Achievements:</h4>
+
                     {% for item in achieves %}
-                    <tr>
-                        <td>{{item.title}}</td>
-                    </tr>
+                        <small class="muted m-1">{{item.title}}</small>
                     {% endfor %}
 
-                </table>
+
         </fieldset>
-
-
     </div>
 </div>
+
     <!-- Modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -75,18 +91,7 @@
       </div>
     </div>
 <hr>
-    <form action="">
-    <div class="input-group-sm mb-3 mt-3">
-        <label for="port-color-back">Try some colors for background(not saving in db):</label>
-        <input class="form-control" type="text" id="port-color-back" placeholder="green">
-        <label for="port-color-font">Try some colors for font(not saving in db):</label>
-        <input class="form-control" type="text" id="port-color-font" placeholder="white">
-    </div>
-    </form>
-    <div class="btn-group">
-        <button class="btn btn-secondary" onclick="changeColor(document.getElementById('port-color-back').value)">Switch background color</button>
-        <button class="btn btn-secondary" onclick="newFont(document.getElementById('port-color-font').value)">Switch font color</button>
-    </div>
+
   <script>
   function changeColor(newColor) {
     var elem = document.getElementById("main");
@@ -97,5 +102,6 @@
       elem.style.color = newColor
 
   }
+
   </script>
 {% endblock %}

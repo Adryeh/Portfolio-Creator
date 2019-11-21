@@ -27,8 +27,8 @@ class Portfolio(db.Model):
     link = db.Column(db.String)
     avg = db.Column(db.Float)
     school = db.Column(db.String)
-    background_color = db.Column(db.String)
-    font_color = db.Column(db.String)
+    background_color = db.Column(db.String, default='#add8e6')
+    font_color = db.Column(db.String, default='black')
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 
