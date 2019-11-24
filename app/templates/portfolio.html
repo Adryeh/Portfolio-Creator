@@ -2,7 +2,7 @@
 
 {% block body %}
 <div class="wrapper">
-<aside class="sidebar">
+<aside class="sidebar no-print">
 <form class="settings" action="" method="post">
     <a class="settings-btn" href="{{ url_for('port.port_title_update') }}">Update Portfolio</a>
     <a class="settings-btn" href="{{ url_for('users.achievements') }}">Update Achievements</a>
@@ -63,7 +63,7 @@
             <h4>My Achievements:</h4>
 
                     {% for item in achieves %}
-                        <small class="muted m-1">{{item.title}}</small>
+                        <small class="text-muted m-1">{{item.title}}</small>
                     {% endfor %}
 
 
